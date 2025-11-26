@@ -1,2 +1,2 @@
-"""Automation package for Google Calendar to Excel sync."""
+"""Automation package for Google Calendar to Google Sheets sync."""
 

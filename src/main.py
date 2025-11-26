@@ -13,7 +13,7 @@ from .state_store import StateStore
 logging.basicConfig(level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
 
-app = FastAPI(title="Calendar to Excel automation")
+app = FastAPI(title="Calendar to Google Sheets automation")
 settings = get_settings()
 state_store = StateStore(settings.state_dir)
 

@@ -1,11 +1,11 @@
-"""Filter Google Calendar events and push OOO rows into Excel."""
+"""Filter Google Calendar events and push OOO rows into Google Sheets."""
 
 from __future__ import annotations
 
 import logging
 from typing import Dict, Iterable, List, Optional
 
-from .excel_client import ExcelClient
+from .sheets_client import SheetsClient
 
 LOGGER = logging.getLogger(__name__)
 
@@ -23,7 +23,7 @@ def _format_attendees(attendees: Optional[Iterable[Dict]]) -> str:
 
 
 def event_to_row(calendar_id: str, event: Dict) -> List[str]:
-    """Map a Calendar event into an Excel row."""
+    """Map a Calendar event into a sheet row."""
 
     start = _extract_datetime(event, "start")
     end = _extract_datetime(event, "end")
@@ -50,16 +50,16 @@ def is_ooo_event(event: Dict) -> bool:
 
 
 def push_ooo_events(calendar_id: str, events: List[Dict]) -> int:
-    """Send qualifying events to Excel. Returns count."""
+    """Send qualifying events to Google Sheets. Returns count."""
 
-    excel_client = ExcelClient()
+    sheets_client = SheetsClient()
     pushed = 0
     for event in events:
         if not is_ooo_event(event):
             continue
         row = event_to_row(calendar_id, event)
         LOGGER.info("Appending OOO event %s from %s", event.get("id"), calendar_id)
-        excel_client.append_row(row)
+        sheets_client.append_row(row)
         pushed += 1
     return pushed
 

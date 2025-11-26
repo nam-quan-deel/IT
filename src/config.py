@@ -31,24 +31,16 @@ class Settings(BaseSettings):
         alias="TARGET_CALENDARS",
         description="Comma-separated list of calendar IDs to watch.",
     )
-    excel_drive_id: str = Field(
+    google_spreadsheet_id: str = Field(
         ...,
-        alias="EXCEL_DRIVE_ID",
-        description="Microsoft 365 drive ID where the workbook lives.",
+        alias="GOOGLE_SPREADSHEET_ID",
+        description="Spreadsheet ID that stores the aggregated OOO events.",
     )
-    excel_item_id: str = Field(
-        ...,
-        alias="EXCEL_ITEM_ID",
-        description="Microsoft 365 drive item ID for the workbook.",
-    )
-    excel_table_name: str = Field(
+    google_sheet_name: str = Field(
         "OOOEvents",
-        alias="EXCEL_TABLE_NAME",
-        description="Name of the Excel table that stores OOO rows.",
+        alias="GOOGLE_SHEET_NAME",
+        description="Worksheet/tab name that holds the OOO table.",
     )
-    ms_client_id: str = Field(..., alias="MS_CLIENT_ID")
-    ms_client_secret: str = Field(..., alias="MS_CLIENT_SECRET")
-    ms_tenant_id: str = Field(..., alias="MS_TENANT_ID")
     state_dir: Path = Field(
         Path("/workspace/state"),
         alias="STATE_DIR",
