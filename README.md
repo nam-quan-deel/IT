@@ -4,7 +4,7 @@ Automation blueprint for capturing Out-of-Office (OOO) events from specific Goog
 
 ## Architecture
 - `register_channels`: HTTP Cloud Function (triggered by Cloud Scheduler) that ensures Calendar push channels are alive for each target user via the Calendar `events.watch` API.
-- `calendar_webhook`: HTTP Cloud Function that receives push notifications, pulls incremental changes with sync tokens, filters for events whose summaries start with `OOO`, and appends a row to Sheets.
+- `calendar_webhook`: HTTP Cloud Function that receives push notifications, pulls incremental changes with sync tokens, filters for events whose summaries start with `OOO`, appends a row to Sheets, and (optionally) posts a Slack conflict alert if too many people are OOO on the same day.
 - `healthcheck`: lightweight endpoint you can point uptime checks at or use to keep the container warm.
 
 Supporting services:
@@ -60,3 +60,13 @@ functions-framework --target=register_channels --debug
 ```
 
 Populate the needed environment variables locally (Target users, sheet IDs, webhook URL, etc.) and use `ngrok` to expose the webhook if you want to receive real Calendar notifications while developing.
+
+## Slack Conflict Alerts (optional)
+Set these env vars to enable alerts:
+- `SLACK_WEBHOOK_URL`: Slack incoming webhook URL.
+- `PTO_THRESHOLD`: max allowed OOO per day (default `3`). Alerts fire when count is **greater than** this value.
+- `SLACK_MENTIONS`: text included after the siren emoji (e.g. `@tarun.kumar @Ronen @Michael`).
+- `SLACK_CC_MENTIONS`: optional CC line text (e.g. `@Sami @Mark`).
+- `SHEET_NAME`: shown in the Slack alert (default `OOO`).
+- `TIMEZONE`: timezone for “same day” comparisons (default `UTC`).
+- `USER_LABELS_JSON`: optional JSON mapping from user email to display label (e.g. `{"rohan@acme.com":"ROHAN (APAC)"}`).

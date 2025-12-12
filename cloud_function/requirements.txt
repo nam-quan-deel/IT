@@ -3,3 +3,4 @@ google-api-python-client==2.154.0
 google-auth==2.35.0
 google-cloud-firestore==2.16.0
 google-cloud-secret-manager==2.21.1
+requests==2.32.3
