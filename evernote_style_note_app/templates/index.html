@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Evernote‑style Notes</title>
+    <link rel="stylesheet" href="/static/app.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="sidebar__top">
+          <div class="brand">
+            <div class="brand__dot"></div>
+            <div class="brand__text">
+              <div class="brand__title">Notes</div>
+              <div class="brand__subtitle">Evernote‑style</div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button id="newNoteBtn" class="btn btn--primary" type="button">New note</button>
+          </div>
+
+          <div class="filters">
+            <input id="searchInput" class="input" placeholder="Search (title + content)…" autocomplete="off" />
+            <div class="tagRow">
+              <input id="tagFilterInput" class="input input--sm" placeholder="Filter tag (optional)…" autocomplete="off" />
+              <button id="clearTagFilterBtn" class="btn btn--ghost btn--sm" type="button">Clear</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="notesList" class="notesList"></div>
+      </aside>
+
+      <main class="main">
+        <div class="toolbar">
+          <div class="toolbar__left">
+            <span id="statusPill" class="pill">Ready</span>
+          </div>
+          <div class="toolbar__right">
+            <button id="togglePreviewBtn" class="btn btn--ghost" type="button">Preview</button>
+            <button id="deleteNoteBtn" class="btn btn--danger" type="button" disabled>Delete</button>
+          </div>
+        </div>
+
+        <div id="emptyState" class="empty">
+          <div class="empty__card">
+            <div class="empty__title">Create a note</div>
+            <div class="empty__text">Use <b>New note</b>, then start writing. Notes auto‑save.</div>
+          </div>
+        </div>
+
+        <div id="editor" class="editor hidden">
+          <div class="meta">
+            <input id="titleInput" class="title" placeholder="Untitled" />
+            <div class="metaRow">
+              <input id="tagsInput" class="input" placeholder="Tags (comma separated)…" />
+              <label class="pinToggle">
+                <input id="pinnedCheckbox" type="checkbox" />
+                <span>Pin</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="split">
+            <textarea id="contentInput" class="content" placeholder="Write in Markdown…"></textarea>
+            <div id="previewPane" class="preview hidden">
+              <div class="preview__inner" id="previewInner"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
